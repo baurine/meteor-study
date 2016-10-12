@@ -57,12 +57,14 @@ class App extends Component {
     event.preventDefault()
 
     const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim()
-    Tasks.insert({
-      text,
-      createdAt: new Date(),
-      ower: Meteor.userId(),
-      username: Meteor.user().username,
-    })
+    // Tasks.insert({
+    //   text,
+    //   createdAt: new Date(),
+    //   ower: Meteor.userId(),
+    //   username: Meteor.user().username,
+    // })
+    // 相当于去调用一个 api，发送请求
+    Meteor.call('tasks.insert', text)
 
     ReactDOM.findDOMNode(this.refs.textInput).value = ''
   }

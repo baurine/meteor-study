@@ -1,15 +1,20 @@
 import React, { Component, PropTypes } from 'react'
-import { Tasks } from '../api/tasks.js'
+// import { Tasks } from '../api/tasks.js'
+import { Meteor } from 'meteor/meteor'
 
 export default class Task extends Component {
   deleteTask() {
-    Tasks.remove(this.props.task._id)
+    // Tasks.remove(this.props.task._id)
+    // 相当于去调用一个 api，发送请求
+    Meteor.call('tasks.remove', this.props.task._id)
   }
 
   toggleTask() {
-    Tasks.update(this.props.task._id, {
-      $set: { checked: !this.props.task.checked }
-    })
+    // Tasks.update(this.props.task._id, {
+    //   $set: { checked: !this.props.task.checked }
+    // })
+    // 相当于去调用一个 api，发送请求
+    Meteor.call('tasks.setChecked', this.props.task._id, !this.props.task.checked)
   }
 
   render() {
