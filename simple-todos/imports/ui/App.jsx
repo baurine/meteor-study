@@ -33,8 +33,10 @@ class App extends Component {
   }
 
   renderTasks() {
+    const curId = this.props.currentUser && this.props.currentUser._id
+
     return this.getTasks().map(task=>(
-      <Task key={task._id} task={task}/>
+      <Task key={task._id} task={task} showPrivateBtn={task.owner === curId}/>
     ))
   }
 
@@ -108,7 +110,9 @@ App.propTypes = {
 }
 
 // 这里的 createContainer 和 react-redux 库的 connect 功能极为相似
-export default createContainer(()=>{
+export default createContainer(() => {
+  Meteor.subscribe('tasks')
+
   return {
     tasks: Tasks.find({}, {sort: {createdAt: -1}}).fetch(),
     inCompletedCount: Tasks.find({ checked: { $ne: true }}).count(),
