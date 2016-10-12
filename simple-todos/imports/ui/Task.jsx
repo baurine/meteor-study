@@ -25,7 +25,10 @@ export default class Task extends Component {
           readOnly
           checked={this.props.task.checked}
           onClick={this.toggleTask.bind(this)}/>
-        <span>{this.props.task.text}</span>
+        <span className='text'>
+          <strong>{this.props.task.username}</strong>
+          : {this.props.task.text}
+        </span>
       </li>
     )
   }
